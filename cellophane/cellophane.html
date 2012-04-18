@@ -114,7 +114,7 @@
                     $('#input').css('color', message.color);
                 }
                 else if (message.cmd == 'set separator color') {
-                    $('#input').css('border', message.color);
+                    $('#input').css('border-top', '1px solid ' + message.color);
                 }
                 else if (message.cmd == 'set password on') {
                     $('#input')[0].type = 'password'; 
