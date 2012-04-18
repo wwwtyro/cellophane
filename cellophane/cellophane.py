@@ -16,7 +16,7 @@ json = tornado.escape.json_encode
 class Handler(tornado.websocket.WebSocketHandler):
 
     def open(self):
-        self.color = 'lightgreen'
+        self.color = '#2aa198'
         self.on_create()
 
     def on_message(self, message):

@@ -37,7 +37,7 @@
                 height: 100%;
                 width: 100%;
                 background-color: #002b36;
-                color: #93a1a1;
+                color: #2aa198;
                 padding-left: 4px;
                 padding-right: 4px;
                 font-size: 16px;
@@ -46,14 +46,14 @@
             }
             
             #input {
-                background-color: #073642;
+                background-color: #002b36;
                 border: none;
                 border-top: 1px solid #586e75;
                 width: 100%;
                 padding: 4px;
                 margin: 0px;
                 outline: none;
-                color: #93a1a1;
+                color: #2aa198;
                 font-family: "ubumono";
                 font-size: 16px;
             }
@@ -92,7 +92,7 @@
             });
 
             function write(string, color) {
-                span = sprintf('<span style="color:%s;">%s</span>', color, string);
+                var span = sprintf('<span style="color:%s;">%s</span>', color, string);
                 $('#output').append(span);
                 if(scrollLocked) {
                     scrollBottom();
@@ -100,7 +100,7 @@
             }
             
             function onMessage(e) {
-                message = $.parseJSON(e.data);
+                var message = $.parseJSON(e.data);
                 if (message.cmd == 'write') {
                     write(message.message, message.color);
                 }
