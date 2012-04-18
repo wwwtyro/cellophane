@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+
+        <title>Cellophane</title>
+
+        <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+        <link href="bootstrap/google-code-prettify/prettify.css" rel="stylesheet" />
+        
+        <style>
+            body {
+                padding-top: 32px;
+                padding-bottom: 128px;
+            }
+            
+            #celloecho {
+                width: 100%;
+                height: 200px;
+                border: none;
+            }
+
+            #cellochat {
+                width: 100%;
+                height: 400px;
+                border: none;
+            }
+        </style>
+
+    </head>
+
+    <body onload="prettyPrint()">
+    
+        
+        
+
+        <div class="container">
+
+            <div class='hero-unit'>
+
+                <h1>Cellophane</h1>
+                
+                <p>
+                    A dead simple web terminal that gets all of the boilerplate 
+                    out of the way and lets you do 100% of your work on the 
+                    server side.
+                </p>
+                
+
+            </div>
+            
+            <div class='row'>
+            
+                <div class='span4'>
+                    <a class='btn btn-large btn-primary' style='width:90%' href='https://github.com/wwwtyro/cellophane/tarball/master'>
+                        <h3>Download</h3>
+                    </a>
+                </div>
+                <div class='span4'>
+                    <a class='btn btn-large' style='width:90%' href='https://github.com/wwwtyro/cellophane/blob/master/README'>
+                        <h3>Documentation</h3>
+                    </a>
+                </div>
+                <div class='span4'>
+                    <a class='btn btn-large' style='width:90%' href='https://github.com/wwwtyro/cellophane'>
+                        <h3>Fork Cellophane on github</h3>
+                    </a>
+                </div>
+            
+            </div>
+            
+            <br>
+            
+            <div class='page-header'>
+                <h1>Really, really, simple.</h1>
+            </div>
+            
+            <div class='row'>
+
+                <div class='span5'>
+
+                    <h3>This python:</h3>
+    
+<pre class="prettyprint linenums">
+import cellophane
+
+class Echoer(cellophane.Handler):
+    def on_receive(self, message):
+        self.writeline(message)
+
+cp = cellophane.Cellophane(Echoer)
+cp.go()
+</pre>
+
+                </div>
+                
+                <div class='span7'>
+    
+                    <h3>
+                        Yields this echo server on http://localhost:8888
+                        <small>(live demo in iframe)</small>
+                    </h3>
+                    <div class='well'>
+                        <iframe id='celloecho' src='http://50.116.21.50:8888'></iframe>
+                    </div>
+
+                </div>
+                
+            </div>
+
+            <div class='page-header'>
+                <h1>Another example: anonymous chat server.</h1>
+            </div>
+            
+<pre class="prettyprint linenums">
+import cellophane
+clients = []
+
+class BigTalker(cellophane.Handler):
+
+    def on_create(self):
+        clients.append(self)
+
+    def on_destroy(self):
+        clients.remove(self)
+
+    def on_receive(self, message):
+        message = cellophane.escape(message)
+        self.writeline('You say, "%s"' % message, 'orange')
+        for client in clients:
+            if client is not self:
+                client.writeline('Someone says, "%s"' % message)
+
+cp = cellophane.Cellophane(BigTalker)
+cp.go()
+</pre>
+            <div class='well'>
+                <iframe id='cellochat' src='http://50.116.21.50:8889'></iframe>
+            </div>
+    
+            <br>
+
+            <div class='row'>
+                
+                <div class='span4'>
+                    <h2>Miscellaneous features</h2>
+                    <h4>
+                        <ul>
+                            <li>
+                                Set colors for:
+                                <ul>
+                                    <li>input and output backgrounds</li>
+                                    <li>output text on a per-line or character basis</li>
+                                    <li>input text</li>
+                                    <li>sepatator</li>
+                                </ul>
+                            </li>
+                            <li>Password mode for the input field</li>
+                            <li>Set your own favicon and page title</li>
+                        </ul>
+                    </h4>
+                </div>
+                
+                <div class='span4'>
+                    <h2>Tested on</h2>
+                    <img src='chrome-logo.png'>
+                    <img src='firefox-logo.png'>
+                </div>
+
+                <div class='span4'>
+
+                    <a class='btn btn-large btn-primary' style='width:90%' href='https://github.com/wwwtyro/cellophane/tarball/master'>
+                        <h3>Download Cellophane</h3>
+                    </a>
+                    
+                    <br><br>
+                    
+                    <h2>Install it</h2>
+                    <div class='well'>
+                        $ python setup.py install
+                    </div>
+                    <h4>Cellophane depends on <a href='http://www.tornadoweb.org'>Tornado</a>, 
+                    so you'll need to install it, too. Via pip, for example:</h4>
+                    <div class='well'>
+                        $ sudo pip install tornado
+                    </div>
+
+
+                    <a class='btn btn-large' style='width:90%' href='https://github.com/wwwtyro/cellophane/blob/master/README'>
+                        <h3>Read the Documentation</h3>
+                    </a>
+
+                    <br><br>
+
+                    <a class='btn btn-large' style='width:90%' href=''>
+                        <h3>Fork Cellophane on github</h3>
+                    </a>
+                    
+                </div>
+                
+            
+            </div>
+            
+
+        </div>
+
+        <script src="bootstrap/js/jquery.js"></script>
+        <script src="bootstrap/google-code-prettify/prettify.js"></script>        
+        <script src="bootstrap/js/bootstrap.js"></script>
+
+    </body>
+
+</html>
+
