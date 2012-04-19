@@ -55,27 +55,27 @@ should not be overridden, namely:
 
 **on_receive**(*message*)
 
-Override this method to receive messages from clients.
-
-*message*: A string sent from the client.
+    Override this method to receive messages from clients.
+    
+    *message*: A string sent from the client.
 
 **on_destroy**()
 
-Called whenever a client is disconnected. Override to handle this event.
+    Called whenever a client is disconnected. Override to handle this event.
 
 **destroy**()
 
-Disconnect the client.
+    Disconnect the client.
 
 **write**(*string*, *color*=None)
 
-Write a string to the terminal. Newline characters, '\n', result in a new line on the client terminal.
-
-*string*: The string to write.
-
-*color*: A string representing the color to display the text in on the client. This can be anything 
-the browser will understand as a color. Typical representations might be "red", "#FF0000", or 
-"rgb(255,0,0)".
+    Write a string to the terminal. Newline characters, '\n', result in a new line on the client terminal.
+    
+    *string*: The string to write.
+    
+    *color*: A string representing the color to display the text in on the client. This can be anything 
+    the browser will understand as a color. Typical representations might be "red", "#FF0000", or 
+    "rgb(255,0,0)".
 
 **writeline**(*string*, *color*=None)
 
