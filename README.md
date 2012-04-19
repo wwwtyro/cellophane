@@ -75,7 +75,7 @@ Cellophane is primarily composed of two classes: Cellophane and Handler. The Cel
 with starting up the server, while the Handler class manages the events fired by individual clients. 
 
 
-#### class cellophane.Handler()
+### class cellophane.Handler()
 
 Subclass **Handler** to manage create/receive/destroy events from clients. This class is a thin wrapper 
 around **tornado.websocket.WebSocketHandler**. Some functions are used internally by Cellophane and 
@@ -86,7 +86,7 @@ should not be overridden, namely:
 - **on_message**: use **on_receive** instead
 - **on_close**: use **on_destroy** instead
 
-##### Methods:
+#### Methods:
 
 **on_create**()
 
@@ -168,7 +168,7 @@ should not be overridden, namely:
     on: True to hide typed characters, False to display them.
     
 
-#### class cellophane.Cellophane(client_class=Handler, hostname='localhost', port='8888', favicon_path=STATIC_PATH, title='cellophane', debug=True)
+### class cellophane.Cellophane(client_class=Handler, hostname='localhost', port='8888', favicon_path=STATIC_PATH, title='cellophane', debug=True)
 
     client_class: the class you have subclassed from Handler to handle your server-side logic
     
@@ -185,7 +185,7 @@ should not be overridden, namely:
     debug: run Tornado in debug mode to see errors on the browser and automatically restart the 
            server when code is changed        
     
-##### Methods:
+#### Methods:
 
 **periodic**(*function*, *time*)
     
