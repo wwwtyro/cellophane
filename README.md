@@ -13,7 +13,7 @@ attention on the server side, never having to consider any code or logic on the 
 
 Here's a simple example, an echo server:
 
-```
+```python
 import cellophane
 
 class Echoer(cellophane.Handler):
