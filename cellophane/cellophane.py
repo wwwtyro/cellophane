@@ -12,10 +12,13 @@ STATIC_PATH = os.path.join(PATH, 'static')
 escape = tornado.escape.xhtml_escape
 json = tornado.escape.json_encode
 
+allow_draft76 = True
 
 class Handler(tornado.websocket.WebSocketHandler):
 
     def open(self):
+        if allow_draft76:
+            self.allow_draft76()
         self.color = '#2aa198'
         self.on_create()
 
@@ -78,7 +81,8 @@ class Handler(tornado.websocket.WebSocketHandler):
         message = json(message)
         self.write_message(message)
     
-
+    def get_ip(self):   
+        return self.request.remote_ip
 
 class WebHandler(tornado.web.RequestHandler):
     def initialize(self, **kwargs):
