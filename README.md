@@ -162,4 +162,76 @@ The Cellophane class
 **go**()
         
         Starts the web server and web socket server. This function is blocking.
+        
+
+Miscellaneous functions
+=======================
+
+**cellophane.escape**(*string*)
+
+    This is Tornado's XHTML escapeing function. You might use this to try to prevent 
+    XSS attacks.
+
+
+Example: an anonymous chat server
+=================================
+
+```python
+import cellophane
+
+# In order for clients to be able to send chat messages to everyone else, they need to 
+# be able to access the Handler objects representing the other clients. We'll use a list
+# to keep track of them.
+clients = []
+
+class BigTalker(cellophane.Handler):
+
+    def on_create(self):
+        # This is the first time we see this client, so add it to our list.
+        clients.append(self)
+
+    def on_destroy(self):
+        # The client has disconnected, so remove it from the list.
+        clients.remove(self)
+
+    def on_receive(self, message):
+        # We don't want any nefarious clients performing XSS attacks on anyone else,
+        # so let's escape the HTML.
+        message = cellophane.escape(message)
+        
+        # Echo back to the sender what they said.
+        self.writeline('You say, "%s"' % message, 'orange');
+        
+        # Send the chat message to everyone except the originator.
+        for client in clients:
+            if client is not self:
+                client.writeline('Someone says, "%s"' % message)
+
+
+cp = cellophane.Cellophane(BigTalker)
+cp.go()
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
