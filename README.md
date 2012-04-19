@@ -1,7 +1,7 @@
 Overview
 ========
 
-Typically when creating web applications, the developer must work on both client and server-side code. 
+Often when creating web applications, the developer must work on both client and server-side code. 
 This tends to increase the amount of complexity and the number of context switches the developer must 
 deal with.
 
@@ -50,8 +50,8 @@ should not be overridden, namely:
 
 **on_create**()
 
-Called whenever a client connects to the server. Override to handle this event. Typical actions taken 
-might be storing the new client in a list, sending an introductory message, or setting colors.
+    Called whenever a client connects to the server. Override to handle this event. Typical actions taken 
+    might be storing the new client in a list, sending an introductory message, or setting colors.
 
 **on_receive**(*message*)
 
