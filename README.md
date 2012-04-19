@@ -81,7 +81,7 @@ should not be overridden, namely:
 
     The same as Handler.write(), but appends a newline to the end.
 
-**set_color**(color)
+**set_color**(*color*)
 
     Sets the default text color in the output pane.
 
@@ -131,25 +131,34 @@ should not be overridden, namely:
 The Cellophane class
 ====================
 
-class cellophane.Cellophane(client_class=Handler, hostname='localhost', 
-                            port='8888', favicon_path=STATIC_PATH, 
-                            title='cellophane', debug=True)
-                            
+### class cellophane.Cellophane(client_class=Handler, hostname='localhost', port='8888', favicon_path=STATIC_PATH, title='cellophane', debug=True)
+
     client_class: the class you have subclassed from Handler to handle your server-side logic
-    hostname: this is the host name or ip address that the client will attempt to connect to via websockets
+    
+    hostname: this is the host name or ip address that the client will attempt to connect to via 
+              websockets
+    
     port: the port the webpages are served and websockets are handled on
-    favicon_path: if you want to override the built in favicon, point this to the path containing your favicon (not at the favicon itself)
+    
+    favicon_path: if you want to override the built in favicon, point this to the path containing 
+                  your favicon (not at the favicon itself)
+    
     title: the page title for the web terminal
-    debug: run Tornado in debug mode to see errors on the browser and automatically restart the server when code is changed        
     
-    function periodic(function, time)
+    debug: run Tornado in debug mode to see errors on the browser and automatically restart the 
+           server when code is changed        
     
-        This provides a means of running a function at a regular interval. This should be called before starting the server with Cellophane.go().
+#### Methods
+
+**periodic**(*function*, *time*)
+    
+        Provides a means of running a function at a regular interval. This should be called before starting the server with Cellophane.go().
         
         function: the function to execute
+        
         time: the amount of time, in milliseconds, between executions of function
         
-    function go()
+**go**()
         
-        Starts the web server and web socket server. This function blocks.
+        Starts the web server and web socket server. This function is blocking.
 
