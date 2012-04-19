@@ -1,4 +1,3 @@
-
 Overview
 ========
 
@@ -8,6 +7,7 @@ One way to reduce this complexity is to make static one end of the communication
 
 Here's a simple example, an echo server:
 
+```python
     import cellophane
 
     class Echoer(cellophane.Handler):
