@@ -27,69 +27,69 @@ Cellophane is primarily composed of two classes: Cellophane and Handler. The Cel
 The Handler class
 =================
 
-class cellophane.Handler()
+###class cellophane.Handler()
 
-    Subclass Handler to manage create/receive/destroy events from clients. This class is a thin wrapper around tornado.websocket.WebSocketHandler. Some functions are used internally by Cellophane and should not be overridden, namely:
-    
-    __init__: use on_create instead
-    open: use on_create instead
-    on_message: use on_receive
-    on_close: use on_destroy
-    
-    Methods:
-    
-        on_create()
-            Called whenever a client connects to the server. Override to handle this event. Typical actions taken might be storing the new client in a list, sending an introductory message, or setting colors.
-            
-        on_receive(message)
-            Override this method to receive messages from clients.
-            
-            message: A string sent from the client.
-            
-        on_destroy()
-            Called whenever a client is disconnected. Override to handle this event.
-            
-        destroy()
-            Disconnect the client.
+Subclass Handler to manage create/receive/destroy events from clients. This class is a thin wrapper around tornado.websocket.WebSocketHandler. Some functions are used internally by Cellophane and should not be overridden, namely:
 
-        write(string, color=None)
-            Write a string to the terminal. Newline characters, '\n', result in a new line on the client terminal.
-            
-            string: The string to write.
-            color: A string representing the color to display the text in on the client. This can be anything the browser will understand as a color. Typical representations might be "red", "#FF0000", or "rgb(255,0,0)".
+__init__: use on_create instead
+open: use on_create instead
+on_message: use on_receive
+on_close: use on_destroy
 
-        writeline(string, color=None)
-            The same as Handler.write(), but appends a newline to the end.
-        
-        set_color(color)
-            Sets the default text color in the output pane.
+Methods:
 
-            color: A string representing the color to display the text in on the client. This can be anything the browser will understand as a color. Typical representations might be "red", "#FF0000", or "rgb(255,0,0)".
-            
-        set_input_color(color)
-            Sets the default text color in the input pane.
+on_create()
+Called whenever a client connects to the server. Override to handle this event. Typical actions taken might be storing the new client in a list, sending an introductory message, or setting colors.
 
-            color: A string representing the color to display the text in on the client. This can be anything the browser will understand as a color. Typical representations might be "red", "#FF0000", or "rgb(255,0,0)".
-        
-        set_output_background_color(color)
-            Sets the color of the output pane background.
+on_receive(message)
+Override this method to receive messages from clients.
 
-            color: A string representing the color to display the text in on the client. This can be anything the browser will understand as a color. Typical representations might be "red", "#FF0000", or "rgb(255,0,0)".
-            
-        set_input_background_color(color)
-            Sets the color of the input pane background.
+message: A string sent from the client.
 
-            color: A string representing the color to display the text in on the client. This can be anything the browser will understand as a color. Typical representations might be "red", "#FF0000", or "rgb(255,0,0)".
-            
-        set_separator_color(color)
-            Sets the color of the input/output sepatator line. 
+on_destroy()
+Called whenever a client is disconnected. Override to handle this event.
 
-            color: A string representing the color to display the text in on the client. This can be anything the browser will understand as a color. Typical representations might be "red", "#FF0000", or "rgb(255,0,0)".
-            
-        set_password_mode(on)
-            Makes the input field hide typed characters. Useful for authentication purposes.
-            
-            on: True to hide typed characters, False to display them.
+destroy()
+Disconnect the client.
+
+write(string, color=None)
+Write a string to the terminal. Newline characters, '\n', result in a new line on the client terminal.
+
+string: The string to write.
+color: A string representing the color to display the text in on the client. This can be anything the browser will understand as a color. Typical representations might be "red", "#FF0000", or "rgb(255,0,0)".
+
+writeline(string, color=None)
+The same as Handler.write(), but appends a newline to the end.
+
+set_color(color)
+Sets the default text color in the output pane.
+
+color: A string representing the color to display the text in on the client. This can be anything the browser will understand as a color. Typical representations might be "red", "#FF0000", or "rgb(255,0,0)".
+
+set_input_color(color)
+Sets the default text color in the input pane.
+
+color: A string representing the color to display the text in on the client. This can be anything the browser will understand as a color. Typical representations might be "red", "#FF0000", or "rgb(255,0,0)".
+
+set_output_background_color(color)
+Sets the color of the output pane background.
+
+color: A string representing the color to display the text in on the client. This can be anything the browser will understand as a color. Typical representations might be "red", "#FF0000", or "rgb(255,0,0)".
+
+set_input_background_color(color)
+Sets the color of the input pane background.
+
+color: A string representing the color to display the text in on the client. This can be anything the browser will understand as a color. Typical representations might be "red", "#FF0000", or "rgb(255,0,0)".
+
+set_separator_color(color)
+Sets the color of the input/output sepatator line. 
+
+color: A string representing the color to display the text in on the client. This can be anything the browser will understand as a color. Typical representations might be "red", "#FF0000", or "rgb(255,0,0)".
+
+set_password_mode(on)
+Makes the input field hide typed characters. Useful for authentication purposes.
+
+on: True to hide typed characters, False to display them.
     
 
 The Cellophane class
