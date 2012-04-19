@@ -7,16 +7,16 @@ One way to reduce this complexity is to make static one end of the communication
 
 Here's a simple example, an echo server:
 
-```python
-    import cellophane
+```
+import cellophane
 
-    class Echoer(cellophane.Handler):
+class Echoer(cellophane.Handler):
 
-        def on_receive(self, message):
-            self.writeline(message)
+    def on_receive(self, message):
+        self.writeline(message)
 
-    cp = cellophane.Cellophane(Echoer)
-    cp.go()
+cp = cellophane.Cellophane(Echoer)
+cp.go()
 ```
 
 If you were to run this script, Cellophane would open port 8888 on localhost and render a webpage there with all the logic necessary for communicating back to the server via web sockets.
@@ -29,9 +29,9 @@ The Handler class
 
 ###class cellophane.Handler()
 
-Subclass Handler to manage create/receive/destroy events from clients. This class is a thin wrapper around tornado.websocket.WebSocketHandler. Some functions are used internally by Cellophane and should not be overridden, namely:
+Subclass _Handler_ to manage create/receive/destroy events from clients. This class is a thin wrapper around tornado.websocket.WebSocketHandler. Some functions are used internally by Cellophane and should not be overridden, namely:
 
-__init__: use on_create instead
+\_\_init\_\_: use on_create instead
 open: use on_create instead
 on_message: use on_receive
 on_close: use on_destroy
