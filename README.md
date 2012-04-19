@@ -28,14 +28,54 @@ cp.go()
 If you were to run this script, Cellophane would open port 8888 on localhost and render a webpage 
 there with all the logic necessary for communicating back to the server via web sockets.
 
+
+Example: an anonymous chat server
+=================================
+
+```python
+import cellophane
+
+# In order for clients to be able to send chat messages to everyone else, they need to 
+# be able to access the Handler objects representing the other clients. We'll use a list
+# to keep track of them.
+clients = []
+
+class BigTalker(cellophane.Handler):
+
+    def on_create(self):
+        # This is the first time we see this client, so add it to our list.
+        clients.append(self)
+
+    def on_destroy(self):
+        # The client has disconnected, so remove it from the list.
+        clients.remove(self)
+
+    def on_receive(self, message):
+        # We don't want any nefarious clients performing XSS attacks on anyone else,
+        # so let's escape the HTML.
+        message = cellophane.escape(message)
+        
+        # Echo back to the sender what they said.
+        self.writeline('You say, "%s"' % message, 'orange');
+        
+        # Send the chat message to everyone except the originator.
+        for client in clients:
+            if client is not self:
+                client.writeline('Someone says, "%s"' % message)
+
+
+cp = cellophane.Cellophane(BigTalker)
+cp.go()
+```
+
+Reference
+=========
+
 Cellophane is primarily composed of two classes: Cellophane and Handler. The Cellophane class deals 
 with starting up the server, while the Handler class manages the events fired by individual clients. 
 
 
-The Handler class
-=================
-
-### class cellophane.Handler()
+#### class cellophane.Handler()
 
 Subclass **Handler** to manage create/receive/destroy events from clients. This class is a thin wrapper 
 around **tornado.websocket.WebSocketHandler**. Some functions are used internally by Cellophane and 
@@ -46,7 +86,7 @@ should not be overridden, namely:
 - **on_message**: use **on_receive** instead
 - **on_close**: use **on_destroy** instead
 
-#### Methods:
+##### Methods:
 
 **on_create**()
 
@@ -128,10 +168,7 @@ should not be overridden, namely:
     on: True to hide typed characters, False to display them.
     
 
-The Cellophane class
-====================
-
-### class cellophane.Cellophane(client_class=Handler, hostname='localhost', port='8888', favicon_path=STATIC_PATH, title='cellophane', debug=True)
+#### class cellophane.Cellophane(client_class=Handler, hostname='localhost', port='8888', favicon_path=STATIC_PATH, title='cellophane', debug=True)
 
     client_class: the class you have subclassed from Handler to handle your server-side logic
     
@@ -148,7 +185,7 @@ The Cellophane class
     debug: run Tornado in debug mode to see errors on the browser and automatically restart the 
            server when code is changed        
     
-#### Methods
+##### Methods:
 
 **periodic**(*function*, *time*)
     
@@ -172,44 +209,6 @@ Miscellaneous functions
     This is Tornado's XHTML escapeing function. You might use this to try to prevent XSS attacks.
 
 
-Example: an anonymous chat server
-=================================
-
-```python
-import cellophane
-
-# In order for clients to be able to send chat messages to everyone else, they need to 
-# be able to access the Handler objects representing the other clients. We'll use a list
-# to keep track of them.
-clients = []
-
-class BigTalker(cellophane.Handler):
-
-    def on_create(self):
-        # This is the first time we see this client, so add it to our list.
-        clients.append(self)
-
-    def on_destroy(self):
-        # The client has disconnected, so remove it from the list.
-        clients.remove(self)
-
-    def on_receive(self, message):
-        # We don't want any nefarious clients performing XSS attacks on anyone else,
-        # so let's escape the HTML.
-        message = cellophane.escape(message)
-        
-        # Echo back to the sender what they said.
-        self.writeline('You say, "%s"' % message, 'orange');
-        
-        # Send the chat message to everyone except the originator.
-        for client in clients:
-            if client is not self:
-                client.writeline('Someone says, "%s"' % message)
-
-
-cp = cellophane.Cellophane(BigTalker)
-cp.go()
-```
 
 
 
