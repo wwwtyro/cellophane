@@ -68,6 +68,17 @@ cp = cellophane.Cellophane(BigTalker)
 cp.go()
 ```
 
+Installation
+============
+
+Cellophane depends on [Tornado](http://www.tornadoweb.org). You can install it via pip:
+
+    $ pip install tornado
+    
+To install cellophane, download the tarball, unpack it, and:
+
+    $ python setup.py install
+
 Reference
 =========
 
