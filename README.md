@@ -27,18 +27,19 @@ Cellophane is primarily composed of two classes: Cellophane and Handler. The Cel
 The Handler class
 =================
 
-###class cellophane.Handler()
+### class cellophane.Handler()
 
 Subclass _Handler_ to manage create/receive/destroy events from clients. This class is a thin wrapper around tornado.websocket.WebSocketHandler. Some functions are used internally by Cellophane and should not be overridden, namely:
 
-\_\_init\_\_: use on_create instead
-open: use on_create instead
-on_message: use on_receive
-on_close: use on_destroy
+- **\_\_init\_\_**: use **on_create** instead
+- **open**: use **on_create** instead
+- **on_message**: use **on_receive**
+- **on_close**: use **on_destroy**
 
-Methods:
+#### Methods:
 
-on_create()
+**on_create()**
+
 Called whenever a client connects to the server. Override to handle this event. Typical actions taken might be storing the new client in a list, sending an introductory message, or setting colors.
 
 on_receive(message)
