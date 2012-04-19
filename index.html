@@ -44,6 +44,7 @@
                     server side.
                 </p>
                 
+                
 
             </div>
             
@@ -68,11 +69,28 @@
             </div>
             
             <br>
-            
+
             <div class='page-header'>
-                <h1>Really, really simple.</h1>
+                <h1>Overview</h1>
             </div>
-            
+
+            <p class='lead'>
+                Often when creating web applications, the developer must 
+                work on both client and server-side code. This tends to 
+                increase the amount of complexity and the number of context 
+                switches the developer must deal with.
+                <br><br>
+                One way to reduce this complexity is to make static one end 
+                of the communications and develop all logic on the other 
+                end. Cellophane is one attempt at implementing this 
+                paradigm, in the narrow scope of a 'web terminal' - a text 
+                input/output application that runs in the browser. 
+                Cellophane implements all of the client side code, rendering
+                it static. This allows the developer to focus all their 
+                attention on the server side, never having to consider any 
+                code or logic on the client side.                
+            </p>
+
             <div class='row'>
 
                 <div class='span5'>
@@ -90,13 +108,17 @@ cp = cellophane.Cellophane(Echoer)
 cp.go()
 </pre>
 
+                <div class='alert alert-info'>
+                    Try it out: click on the bottom bar, type a message, and hit enter.
+                    <i class='icon-arrow-right'></i>
+                </div>
+
                 </div>
                 
                 <div class='span7'>
     
                     <h3>
                         Yields this echo server on http://localhost:8888
-                        <small>(live demo in iframe)</small>
                     </h3>
                     <div class='well'>
                         <iframe id='celloecho' src='http://50.116.21.50:8888'></iframe>
@@ -132,6 +154,11 @@ class BigTalker(cellophane.Handler):
 cp = cellophane.Cellophane(BigTalker)
 cp.go()
 </pre>
+            <div class='alert alert-info'>
+                Try it out: click on the bottom bar, type a few words, and hit enter.
+                <i class='icon-arrow-down'></i>
+            </div>
+
             <div class='well'>
                 <iframe id='cellochat' src='http://50.116.21.50:8889'></iframe>
             </div>
@@ -141,8 +168,8 @@ cp.go()
             <div class='row'>
                 
                 <div class='span4'>
-                    <h2>Miscellaneous features</h2>
-                    <h4>
+                    <h2>Miscellaneous features:</h2>
+                    <strong>
                         <ul>
                             <li>
                                 Set colors for:
@@ -155,14 +182,24 @@ cp.go()
                             </li>
                             <li>Password mode for the input field</li>
                             <li>Set your own favicon and page title</li>
+                            <li>
+                                Mechanism for periodic function calls outside of 
+                                the scope of the Handler object.
+                            </li>                        
                         </ul>
-                    </h4>
+                    </strong>
                 </div>
                 
                 <div class='span4'>
-                    <h2>Tested on</h2>
-                    <img src='chrome-logo.png'>
-                    <img src='firefox-logo.png'>
+                    <h2>Working on:</h2>
+                    <a href='https://www.google.com/chrome'><img src='chrome-logo.png' width='64px'></a>
+                    &nbsp;
+                    <a href='http://www.mozilla.org/en-US/firefox/new/'><img src='firefox-logo.png' width='64px'></a>
+                    <br><br>
+                    <h2>Powered by:</h2>
+                    <a href='http://www.tornadoweb.org/'><img src='tornado-logo.png' width='200px'></a>
+                    
+                    
                 </div>
 
                 <div class='span4'>
