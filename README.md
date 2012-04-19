@@ -57,7 +57,7 @@ should not be overridden, namely:
 
     Override this method to receive messages from clients.
     
-    *message*: A string sent from the client.
+    message: A string sent from the client.
 
 **on_destroy**()
 
@@ -71,61 +71,61 @@ should not be overridden, namely:
 
     Write a string to the terminal. Newline characters, '\n', result in a new line on the client terminal.
     
-    *string*: The string to write.
+    string: The string to write.
     
-    *color*: A string representing the color to display the text in on the client. This can be anything 
-    the browser will understand as a color. Typical representations might be "red", "#FF0000", or 
-    "rgb(255,0,0)".
+    color: A string representing the color to display the text in on the client. This can be anything 
+           the browser will understand as a color. Typical representations might be "red", "#FF0000", or 
+           "rgb(255,0,0)".
 
 **writeline**(*string*, *color*=None)
 
-The same as Handler.write(), but appends a newline to the end.
+    The same as Handler.write(), but appends a newline to the end.
 
 **set_color**(color)
 
-Sets the default text color in the output pane.
+    Sets the default text color in the output pane.
 
-*color*: A string representing the color to display the text in on the client. This can be anything 
-the browser will understand as a color. Typical representations might be "red", "#FF0000", or 
-"rgb(255,0,0)".
+    color: A string representing the color to display the text in on the client. This can be anything 
+           the browser will understand as a color. Typical representations might be "red", "#FF0000", or 
+           "rgb(255,0,0)".
 
 **set_input_color**(*color*)
 
-Sets the default text color in the input pane.
+    Sets the default text color in the input pane.
 
-*color*: A string representing the color to display the text in on the client. This can be anything 
-the browser will understand as a color. Typical representations might be "red", "#FF0000", or 
-"rgb(255,0,0)".
+    color: A string representing the color to display the text in on the client. This can be anything 
+           the browser will understand as a color. Typical representations might be "red", "#FF0000", or 
+           "rgb(255,0,0)".
 
 **set_output_background_color**(*color*)
 
-Sets the color of the output pane background.
+    Sets the color of the output pane background.
 
-*color*: A string representing the color to display the text in on the client. This can be anything 
-the browser will understand as a color. Typical representations might be "red", "#FF0000", or 
-"rgb(255,0,0)".
+    color: A string representing the color to display the text in on the client. This can be anything 
+           the browser will understand as a color. Typical representations might be "red", "#FF0000", or 
+           "rgb(255,0,0)".
 
 **set_input_background_color**(*color*)
 
-Sets the color of the input pane background.
+    Sets the color of the input pane background.
 
-*color*: A string representing the color to display the text in on the client. This can be anything 
-the browser will understand as a color. Typical representations might be "red", "#FF0000", or 
-"rgb(255,0,0)".
+    color: A string representing the color to display the text in on the client. This can be anything 
+           the browser will understand as a color. Typical representations might be "red", "#FF0000", or 
+           "rgb(255,0,0)".
 
 **set_separator_color**(*color*)
 
-Sets the color of the input/output sepatator line. 
+    Sets the color of the input/output sepatator line. 
 
-*color*: A string representing the color to display the text in on the client. This can be anything 
-the browser will understand as a color. Typical representations might be "red", "#FF0000", or 
-"rgb(255,0,0)".
+    color: A string representing the color to display the text in on the client. This can be anything 
+           the browser will understand as a color. Typical representations might be "red", "#FF0000", or 
+           "rgb(255,0,0)".
 
 **set_password_mode**(*on*)
 
-Makes the input field hide typed characters. Useful for authentication purposes.
-
-*on*: True to hide typed characters, False to display them.
+    Makes the input field hide typed characters. Useful for authentication purposes.
+    
+    on: True to hide typed characters, False to display them.
     
 
 The Cellophane class
