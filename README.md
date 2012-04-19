@@ -152,7 +152,8 @@ The Cellophane class
 
 **periodic**(*function*, *time*)
     
-        Provides a means of running a function at a regular interval. This should be called before starting the server with Cellophane.go().
+        Provides a means of running a function at a regular interval. This should be called before 
+        starting the server with Cellophane.go().
         
         function: the function to execute
         
