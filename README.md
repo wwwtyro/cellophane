@@ -169,8 +169,7 @@ Miscellaneous functions
 
 **cellophane.escape**(*string*)
 
-    This is Tornado's XHTML escapeing function. You might use this to try to prevent 
-    XSS attacks.
+    This is Tornado's XHTML escapeing function. You might use this to try to prevent XSS attacks.
 
 
 Example: an anonymous chat server
