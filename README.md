@@ -17,6 +17,7 @@ Here's a simple example, an echo server:
 
     cp = cellophane.Cellophane(Echoer)
     cp.go()
+```
 
 If you were to run this script, Cellophane would open port 8888 on localhost and render a webpage there with all the logic necessary for communicating back to the server via web sockets.
 
