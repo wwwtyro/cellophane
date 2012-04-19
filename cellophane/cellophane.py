@@ -17,10 +17,11 @@ allow_draft76 = True
 class Handler(tornado.websocket.WebSocketHandler):
 
     def open(self):
-        if allow_draft76:
-            self.allow_draft76()
         self.color = '#2aa198'
         self.on_create()
+        
+    def allow_draft76(self):
+        return allow_draft76
 
     def on_message(self, message):
         self.on_receive(message)
