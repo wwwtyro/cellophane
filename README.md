@@ -174,6 +174,11 @@ should not be overridden, namely: use **on_create** in place of **\_\_init\_\_**
     
     on: True to hide typed characters, False to display them.
     
+**focus_input**()
+    
+    Focuses the input field. Use this to allow the client user to be able to type
+    immediately without first focusing the input field with their mouse.
+    
 **get_ip**()
 
     Returns the client's IP address.

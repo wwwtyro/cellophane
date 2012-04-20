@@ -82,6 +82,11 @@ class Handler(tornado.websocket.WebSocketHandler):
         message = json(message)
         self.write_message(message)
     
+    def focus_input(self):
+        message = dict(cmd='focus input')
+        message = json(message)
+        self.write_message(message)
+
     def get_ip(self):   
         return self.request.remote_ip
 

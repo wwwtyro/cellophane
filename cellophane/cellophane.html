@@ -88,7 +88,6 @@
                 ws.onmessage = onMessage;
                 $('#input').keypress(onKeypress);
                 $('#output').scroll(onScroll);
-                $('#input').focus();
             });
 
             function write(string, color) {
@@ -121,6 +120,9 @@
                 }
                 else if (message.cmd == 'set password off') {
                     $('#input')[0].type = 'text'; 
+                }
+                else if (message.cmd == 'focus input') {
+                    $('#input').focus();
                 }
             }
 
