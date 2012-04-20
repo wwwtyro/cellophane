@@ -219,13 +219,13 @@ Miscellaneous functions
 
     This is Tornado's XHTML escapeing function. You might use this to try to prevent XSS attacks.
 
+
 FAQ
 ===
 
-How can I disable draft76 support?
-----------------------------------
+### How can I disable draft76 support?
 
-Set the value of **cellophane.allow_draft76** to *False* before starting up your server.
+Set the value of **cellophane.allow_draft76** to **False** before starting up your server.
 
 
 
