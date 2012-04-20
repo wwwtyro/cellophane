@@ -178,6 +178,10 @@ should not be overridden, namely:
     
     on: True to hide typed characters, False to display them.
     
+**get_ip**()
+
+    Returns the client's IP address.
+    
 
 ### class cellophane.Cellophane(client_class=Handler, hostname='localhost', port='8888', favicon_path=STATIC_PATH, title='cellophane', debug=True)
 
