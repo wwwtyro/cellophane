@@ -90,12 +90,8 @@ with starting up the server, while the Handler class manages the events fired by
 
 Subclass **Handler** to manage create/receive/destroy events from clients. This class is a thin wrapper 
 around **tornado.websocket.WebSocketHandler**. Some functions are used internally by Cellophane and 
-should not be overridden, namely:
-
-- **\_\_init\_\_**: use **on_create** instead
-- **open**: use **on_create** instead
-- **on_message**: use **on_receive** instead
-- **on_close**: use **on_destroy** instead
+should not be overridden, namely: use **on_create** in place of **\__init\__** and **open**, use 
+**on_receive** instead of **on_message**, and use **on_destroy** in place of **on_close**.
 
 #### Methods:
 
