@@ -1,273 +1,279 @@
-<!DOCTYPE html>
-
+<!doctype html>
 <html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Cellophane by wwwtyro</title>
 
-    <head>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">Cellophane</h1>
+        <p class="header">A dead simple web terminal that gets all of the boilerplate out of the way and lets you do 100% of your work on the server side and in python.</p>
 
-        <title>Cellophane</title>
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/wwwtyro/cellophane/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/wwwtyro/cellophane/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/wwwtyro/cellophane">View On GitHub</a></li>
+        </ul>
 
-        <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
-        <link href="bootstrap/google-code-prettify/prettify.css" rel="stylesheet" />
-
-        <script src="bootstrap/js/jquery.js"></script>
-        <script src="bootstrap/google-code-prettify/prettify.js"></script>        
-        <script src="bootstrap/js/bootstrap.js"></script>
-
-        <style>
-            body {
-                padding-top: 32px;
-                padding-bottom: 128px;
-            }
-            
-            #celloecho {
-                width: 100%;
-                height: 200px;
-                border: none;
-            }
-
-            #cellochat {
-                width: 100%;
-                height: 400px;
-                border: none;
-            }
-        </style>
-
-    </head>
-
-    <body onload="prettyPrint()">
-
-        <div class="container">
-
-            <div class='hero-unit'>
-
-                <h1>Cellophane</h1>
-                
-                <p>
-                    A dead simple web terminal that gets all of the boilerplate 
-                    out of the way and lets you do 100% of your work on the 
-                    server side.
-                </p>
-                
-                
-
-            </div>
-            
-            <div class='row'>
-            
-                <div class='span4'>
-                    <a class='btn btn-large btn-primary' style='width:90%' href='https://github.com/wwwtyro/cellophane/tarball/master'>
-                        <h3>Download</h3>
-                    </a>
-                </div>
-                <div class='span4'>
-                    <a class='btn btn-large' style='width:90%' href='https://github.com/wwwtyro/cellophane#readme'>
-                        <h3>Read the Documentation</h3>
-                    </a>
-                </div>
-                <div class='span4'>
-                    <a class='btn btn-large' style='width:90%' href='https://github.com/wwwtyro/cellophane'>
-                        <h3>Fork Cellophane on github</h3>
-                    </a>
-                </div>
-            
-            </div>
-            
-            <br>
-
-            <div class='page-header'>
-                <h1>Overview</h1>
-            </div>
-
-            <p class='lead'>
-                Often when creating web applications, the developer must 
-                work on both client and server-side code. This tends to 
-                increase the amount of complexity and the number of context 
-                switches the developer must deal with.
-                <br><br>
-                One way to reduce this complexity is to make one end 
-                of the communications static and develop all logic on the other 
-                end. Cellophane is one attempt at implementing this 
-                paradigm, in the narrow scope of a 'web terminal' - a text 
-                input/output application that runs in the browser. 
-                Cellophane implements all of the client side code, rendering
-                it static, and provides a very simple python library for 
-                interfacing with it over websockets. This allows the developer 
-                to focus all their attention on the server side, never having to 
-                consider any code or logic on the client side.                
-            </p>
-
-            <div class='row'>
-
-                <div class='span5'>
-
-                    <h2>This python:</h2>
-    
-<pre class="prettyprint linenums">
-import cellophane
-
-class Echoer(cellophane.Handler):
-    def on_receive(self, message):
-        self.writeline(message)
-
-cp = cellophane.Cellophane(Echoer)
-cp.go()
-</pre>
-
-                    <div class='alert alert-info'>
-                        <table>
-                            <tr>
-                                <td>
-                                    Try it out: click on the bottom bar, type a few words, and 
-                                    hit enter.
-                                </td>
-                                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                                <td>
-                                    <i class='icon-arrow-right'></i>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-
-                </div>
-                
-                <div class='span7'>
-    
-                    <h2>
-                        Yields this echo server on localhost:8888:
-                    </h2>
-                    <div class='well'>
-                        <iframe id='celloecho' src='http://50.116.21.50:8888'>
-                        </iframe>
-                    </div>
-
-                </div>
-                
-            </div>
-
-            <div class='page-header'>
-                <h1>Example: An anonymous chat server</h1>
-            </div>
-            
-<pre class="prettyprint linenums">
-import cellophane
-
-clients = []
-
-class BigTalker(cellophane.Handler):
-
-    def on_create(self):
-        clients.append(self)
-
-    def on_destroy(self):
-        clients.remove(self)
-
-    def on_receive(self, message):
-        message = cellophane.escape(message)
-        self.writeline('You say, "%s"' % message, 'orange')
-        for client in clients:
-            if client is not self:
-                client.writeline('Someone says, "%s"' % message)
-
-cp = cellophane.Cellophane(BigTalker)
-cp.go()
-</pre>
-            <div class='alert alert-info'>
-                <table>
-                    <tr>
-                        <td>
-                            <i class='icon-arrow-down'></i>
-                        </td>
-                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                        <td>
-                            Try it out: click on the bottom bar, type a message,
-                            and hit enter. Note: live demo includes code for 
-                            rate limiting and blocking not in the above listing.
-                        </td>
-                    </tr>
-                </table>
-            </div>
-
-            <div class='well'>
-                <iframe id='cellochat' src='http://50.116.21.50:8889'></iframe>
-            </div>
-    
-            <br>
-
-            <div class='row'>
-                
-                <div class='span4'>
-                    <h2>Miscellaneous features:</h2>
-                    <strong>
-                        <ul>
-                            <li>
-                                Set colors for:
-                                <ul>
-                                    <li>input and output backgrounds</li>
-                                    <li>output text on a per-line or character basis</li>
-                                    <li>input text</li>
-                                    <li>sepatator</li>
-                                </ul>
-                            </li>
-                            <li>Password mode for the input field.</li>
-                            <li>Set your own favicon and page title.</li>
-                            <li>
-                                Mechanism for periodic function calls outside of 
-                                the scope of the Handler object.
-                            </li>                        
-                        </ul>
-                    </strong>
-                </div>
-                
-                <div class='span4'>
-                    <h2>Working on:</h2>
-                    <a href='https://www.google.com/chrome'><img src='chrome-logo.png' width='64px'></a>
-                    &nbsp;
-                    <a href='http://www.mozilla.org/en-US/firefox/new/'><img src='firefox-logo.png' width='68px'></a>
-                    &nbsp;
-                    <a href='http://www.apple.com/safari/'><img src='safari-logo.png' width='76px'></a>
-                    <br><br>
-                    <h2>Powered by:</h2>
-                    <a href='http://www.tornadoweb.org/'><img src='tornado-logo.png' width='200px'></a>
-                </div>
-
-                <div class='span4'>
-
-                    <a class='btn btn-large btn-primary' style='width:90%' href='https://github.com/wwwtyro/cellophane/tarball/master'>
-                        <h3>Download Cellophane</h3>
-                    </a>
-                    
-                    <br><br>
-                    
-                    <h2>Install it</h2>
-                    <div class='well'>
-                        $ python setup.py install
-                    </div>
-                    <h4>Cellophane depends on <a href='http://www.tornadoweb.org'>Tornado</a>, 
-                    so you'll need to install it, too. Via pip, for example:</h4>
-                    <div class='well'>
-                        $ sudo pip install tornado
-                    </div>
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/wwwtyro">wwwtyro</a></p>
 
 
-                    <a class='btn btn-large' style='width:90%' href='https://github.com/wwwtyro/cellophane#readme'>
-                        <h3>Read the Documentation</h3>
-                    </a>
+      </header>
+      <section>
+        <h1>Overview</h1>
 
-                    <br><br>
+<p>Often when creating web applications, the developer must work on both client and server-side code. 
+This tends to increase the amount of complexity and the number of context switches the developer must 
+deal with.</p>
 
-                    <a class='btn btn-large' style='width:90%' href=''>
-                        <h3>Fork Cellophane on github</h3>
-                    </a>
-                    
-                </div>
-                
-            
-            </div>
-            
+<p>One way to reduce this complexity is to make static one end of the communications and develop all 
+logic on the other end. Cellophane is one attempt at implementing this paradigm, in the narrow scope 
+of a 'web terminal' - a text input/output application that runs in the browser. Cellophane implements 
+all of the client side code, rendering it static. This allows the developer to focus all their 
+attention on the server side, never having to consider any code or logic on the client side.</p>
 
-        </div>
+<p>Here's a simple example, an echo server:</p>
 
-    </body>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">cellophane</span>
 
+<span class="k">class</span> <span class="nc">Echoer</span><span class="p">(</span><span class="n">cellophane</span><span class="o">.</span><span class="n">Handler</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">on_receive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">writeline</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+
+<span class="n">cp</span> <span class="o">=</span> <span class="n">cellophane</span><span class="o">.</span><span class="n">Cellophane</span><span class="p">(</span><span class="n">Echoer</span><span class="p">)</span>
+<span class="n">cp</span><span class="o">.</span><span class="n">go</span><span class="p">()</span>
+</pre></div>
+
+<p>If you were to run this script, Cellophane would open port 8888 on localhost and render a webpage 
+there with all the logic necessary for communicating back to the server via web sockets.</p>
+
+<h1>Example: an anonymous chat server</h1>
+
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">cellophane</span>
+
+<span class="c"># In order for clients to be able to send chat messages to everyone else, they need to </span>
+<span class="c"># be able to access the Handler objects representing the other clients. We'll use a list</span>
+<span class="c"># to keep track of them.</span>
+<span class="n">clients</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">class</span> <span class="nc">BigTalker</span><span class="p">(</span><span class="n">cellophane</span><span class="o">.</span><span class="n">Handler</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">on_create</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c"># This is the first time we see this client, so add it to our list.</span>
+        <span class="n">clients</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">on_destroy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c"># The client has disconnected, so remove it from the list.</span>
+        <span class="n">clients</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">on_receive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+        <span class="c"># We don't want any nefarious clients performing XSS attacks on anyone else,</span>
+        <span class="c"># so let's escape the HTML.</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="n">cellophane</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+
+        <span class="c"># Echo back to the sender what they said.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">writeline</span><span class="p">(</span><span class="s">'You say, "</span><span class="si">%s</span><span class="s">"'</span> <span class="o">%</span> <span class="n">message</span><span class="p">,</span> <span class="s">'orange'</span><span class="p">);</span>
+
+        <span class="c"># Send the chat message to everyone except the originator.</span>
+        <span class="k">for</span> <span class="n">client</span> <span class="ow">in</span> <span class="n">clients</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">client</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">self</span><span class="p">:</span>
+                <span class="n">client</span><span class="o">.</span><span class="n">writeline</span><span class="p">(</span><span class="s">'Someone says, "</span><span class="si">%s</span><span class="s">"'</span> <span class="o">%</span> <span class="n">message</span><span class="p">)</span>
+
+
+<span class="n">cp</span> <span class="o">=</span> <span class="n">cellophane</span><span class="o">.</span><span class="n">Cellophane</span><span class="p">(</span><span class="n">BigTalker</span><span class="p">)</span>
+<span class="n">cp</span><span class="o">.</span><span class="n">go</span><span class="p">()</span>
+</pre></div>
+
+<h1>Installation</h1>
+
+<p>Cellophane depends on <a href="http://www.tornadoweb.org">Tornado</a>. You can install it via pip:</p>
+
+<pre><code>$ pip install tornado
+</code></pre>
+
+<p>To install cellophane, download the tarball, unpack it, and:</p>
+
+<pre><code>$ python setup.py install
+</code></pre>
+
+<h1>Reference</h1>
+
+<p>Cellophane is primarily composed of two classes: Cellophane and Handler. The Cellophane class deals 
+with starting up the server, while the Handler class manages the events fired by individual clients. </p>
+
+<h3>class cellophane.Handler()</h3>
+
+<p>Subclass <strong>Handler</strong> to manage create/receive/destroy events from clients and send messages
+and commands to clients.</p>
+
+<h4>Methods:</h4>
+
+<p><strong>on_create</strong>()</p>
+
+<pre><code>Called whenever a client connects to the server. Override to handle this event. Typical actions taken 
+might be storing the new client in a list, sending an introductory message, or setting colors.
+</code></pre>
+
+<p><strong>on_receive</strong>(*message*)</p>
+
+<pre><code>Override this method to receive messages from clients.
+
+message: A string sent from the client.
+</code></pre>
+
+<p><strong>on_destroy</strong>()</p>
+
+<pre><code>Called whenever a client is disconnected. Override to handle this event.
+</code></pre>
+
+<p><strong>destroy</strong>()</p>
+
+<pre><code>Disconnect the client.
+</code></pre>
+
+<p><strong>write</strong>(*string*, <em>color</em>=None)</p>
+
+<pre><code>Write a string to the terminal. Newline characters, '\n', result in a new line on the client terminal.
+
+string: The string to write.
+
+color: A string representing the color to display the text in on the client. This can be anything 
+       the browser will understand as a color. Typical representations might be "red", "#FF0000", or 
+       "rgb(255,0,0)".
+</code></pre>
+
+<p><strong>writeline</strong>(*string*, <em>color</em>=None)</p>
+
+<pre><code>The same as Handler.write(), but appends a newline to the end.
+</code></pre>
+
+<p><strong>set_color</strong>(*color*)</p>
+
+<pre><code>Sets the default text color in the output pane.
+
+color: A string representing the color to display the text in on the client. This can be anything 
+       the browser will understand as a color. Typical representations might be "red", "#FF0000", or 
+       "rgb(255,0,0)".
+</code></pre>
+
+<p><strong>set_input_color</strong>(*color*)</p>
+
+<pre><code>Sets the default text color in the input pane.
+
+color: A string representing the color to display the text in on the client. This can be anything 
+       the browser will understand as a color. Typical representations might be "red", "#FF0000", or 
+       "rgb(255,0,0)".
+</code></pre>
+
+<p><strong>set_output_background_color</strong>(*color*)</p>
+
+<pre><code>Sets the color of the output pane background.
+
+color: A string representing the color to display the text in on the client. This can be anything 
+       the browser will understand as a color. Typical representations might be "red", "#FF0000", or 
+       "rgb(255,0,0)".
+</code></pre>
+
+<p><strong>set_input_background_color</strong>(*color*)</p>
+
+<pre><code>Sets the color of the input pane background.
+
+color: A string representing the color to display the text in on the client. This can be anything 
+       the browser will understand as a color. Typical representations might be "red", "#FF0000", or 
+       "rgb(255,0,0)".
+</code></pre>
+
+<p><strong>set_separator_color</strong>(*color*)</p>
+
+<pre><code>Sets the color of the input/output sepatator line. 
+
+color: A string representing the color to display the text in on the client. This can be anything 
+       the browser will understand as a color. Typical representations might be "red", "#FF0000", or 
+       "rgb(255,0,0)".
+</code></pre>
+
+<p><strong>set_password_mode</strong>(*on*)</p>
+
+<pre><code>Makes the input field hide typed characters. Useful for authentication purposes.
+
+on: True to hide typed characters, False to display them.
+</code></pre>
+
+<p><strong>focus_input</strong>()</p>
+
+<pre><code>Focuses the input field. Use this to allow the client user to be able to type
+immediately without first focusing the input field with their mouse.
+</code></pre>
+
+<p><strong>get_ip</strong>()</p>
+
+<pre><code>Returns the client's IP address.
+</code></pre>
+
+<h3>class cellophane.Cellophane(client_class=Handler, hostname='localhost', port='8888', favicon_path=STATIC_PATH, title='cellophane', debug=True)</h3>
+
+<pre><code>client_class: the class you have subclassed from Handler to handle your server-side logic
+
+hostname: this is the host name or ip address that the client will attempt to connect to via 
+          websockets
+
+port: the port the webpages are served and websockets are handled on
+
+favicon_path: if you want to override the built in favicon, point this to the path containing 
+              your favicon (not at the favicon itself)
+
+title: the page title for the web terminal
+
+debug: run Tornado in debug mode to see errors on the browser and automatically restart the 
+       server when code is changed        
+</code></pre>
+
+<h4>Methods:</h4>
+
+<p><strong>periodic</strong>(*function*, <em>time</em>)</p>
+
+<pre><code>Provides a means of running a function at a regular interval. This should be called before 
+starting the server with Cellophane.go().
+
+function: the function to execute
+
+time: the amount of time, in milliseconds, between executions of function
+</code></pre>
+
+<p><strong>go</strong>()</p>
+
+<pre><code>Starts the web server and web socket server. This function is blocking.
+</code></pre>
+
+<h1>Miscellaneous functions</h1>
+
+<p><strong>cellophane.escape</strong>(*string*)</p>
+
+<pre><code>This is Tornado's XHTML escapeing function. You might use this to try to prevent XSS attacks.
+</code></pre>
+
+<h1>FAQ</h1>
+
+<h3>How can I disable draft76 support?</h3>
+
+<p>Set the value of <strong>cellophane.allow_draft76</strong> to <strong>False</strong> before starting up your server.</p>
+      </section>
+      <footer>
+        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		
+  </body>
 </html>
-
