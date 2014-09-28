@@ -12,7 +12,7 @@ setup (
     package_data={'cellophane': ['license.txt',
                                  'cellophane.html', 
                                  'static/*']},
-    data_files=[('.', ['license.txt', 'README']),
+    data_files=[('.', ['license.txt', 'README.md']),
                 ('examples', ['examples/authentication.py', 'examples/echo.py', 'examples/simple-chat.py'])]
 )
 
