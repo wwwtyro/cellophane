@@ -79,6 +79,10 @@ To install cellophane, download the tarball, unpack it, and:
 
     $ python setup.py install
 
+or simple:
+
+    $ pip install git+https://github.com/wwwtyro/cellophane.git
+
 Reference
 =========
 
